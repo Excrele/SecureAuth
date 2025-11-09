@@ -1,0 +1,45 @@
+# plugin.yml - This is like the plugin's ID card! It tells the Minecraft server what our plugin is called, who made it, and what commands it adds.
+# Without this file, the server won't know about SecureAuth at all. Put this in the 'resources' folder of your project.
+name: SecureAuth
+version: 1.0
+main: com.excrele.SecureAuth  # Points to our main Java class - the brain of the plugin!
+api-version: 1.20  # Works with Minecraft 1.20 and newer servers. Change if your server is older!
+author: excrele  # That's you (or me, the dev)! Credits where due.
+description: A super secure login system for cracked Minecraft servers. Premium players log in fast, cracked ones register a password!
+
+# Commands: These are the magic words players type in chat, like /register or /login.
+commands:
+  register:
+    description: Registers a new account with a secure password. Only for first-time cracked players!
+    usage: /register <password> <repeat-password>  # How to use it - shows if they mess up.
+    permission: secureauth.register  # Who can use this? We'll set defaults below.
+  login:
+    description: Logs you in with your saved password. Keeps your account safe from impersonators!
+    usage: /login <password>
+    permission: secureauth.login
+  changepass:
+    description: Change your current password to a new one (must be logged in!).
+    usage: /changepass <old-password> <new-password> <repeat-new-password>
+    permission: secureauth.changepass
+  setpass:
+    description: Admin only: Force-set a player's password (resets it securely).
+    usage: /setpass <player-name> <new-password>
+    permission: secureauth.setpass
+
+# Permissions: Like VIP passes. 'default: true' means everyone gets it unless an admin says no.
+permissions:
+  secureauth.register:
+    description: Lets players create a new account.
+    default: true  # New players need this!
+  secureauth.login:
+    description: Lets players log in to their account.
+    default: true  # Everyone should be able to!
+  secureauth.changepass:
+    description: Lets players change their own password.
+    default: true  # Handy for updates!
+  secureauth.setpass:
+    description: Lets admins reset a player's password.
+    default: op  # Only server operators get this by default.
+  secureauth.bypass:
+    description: Skips login checks for trusted staff (like ops/admins). Use wisely!
+    default: op  # Only server operators get this by default.
