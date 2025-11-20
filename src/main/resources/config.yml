@@ -1,0 +1,175 @@
+# SecureAuth Configuration File
+# Edit these values to customize your authentication system
+
+# Database Settings
+database:
+  # Storage type: "file" (default, no database required), "sqlite", or "mysql"
+  # Note: SQLite and MySQL are optional. File-based is the default and requires no setup.
+  type: file
+  
+  # SQLite settings (used when type is "sqlite")
+  sqlite:
+    filename: "secureauth.db"
+  
+  # MySQL settings (used when type is "mysql")
+  mysql:
+    host: "localhost"
+    port: 3306
+    database: "secureauth"
+    username: "root"
+    password: "password"
+    # Connection pool settings
+    pool-size: 5
+    max-lifetime: 1800000
+
+# Security Settings
+security:
+  # Password hashing algorithm: "bcrypt" (recommended) or "argon2"
+  hash-algorithm: bcrypt
+  
+  # Two-Factor Authentication (2FA) - Optional
+  two-factor-auth:
+    # Enable 2FA system (optional, not required)
+    enabled: false
+    # Require 2FA for all players (false = optional for players to enable)
+    required: false
+    # TOTP issuer name (shown in authenticator apps)
+    totp-issuer: "SecureAuth Server"
+    # Backup codes count
+    backup-codes-count: 10
+  
+  # Bcrypt settings (used when hash-algorithm is "bcrypt")
+  bcrypt:
+    # Cost factor (4-31, higher = more secure but slower)
+    # Recommended: 10-12 for most servers
+    cost-factor: 10
+  
+  # Argon2 settings (used when hash-algorithm is "argon2")
+  argon2:
+    # Memory cost in KB (must be power of 2)
+    memory: 65536
+    # Number of iterations
+    iterations: 3
+    # Parallelism factor
+    parallelism: 4
+  
+  # Minimum password length
+  min-password-length: 4
+  
+  # Require password complexity (uppercase, lowercase, number, special char)
+  require-complexity: false
+  
+  # Maximum login attempts before lockout
+  max-attempts: 3
+  
+  # Lockout duration in minutes (base duration)
+  lockout-duration-minutes: 5
+  
+  # Progressive lockout: increase duration with each lockout
+  # First lockout: base duration, Second: base * 3, Third: base * 12, etc.
+  progressive-lockouts: true
+  
+  # Time in minutes before failed attempt count resets
+  attempt-reset-minutes: 5
+  
+  # Enable IP-based rate limiting
+  enable-ip-limits: true
+
+# Session Settings
+session:
+  # Session timeout in minutes (0 to disable)
+  timeout-minutes: 30
+  
+  # Activity check interval in seconds
+  check-interval-seconds: 60
+
+# Premium Player Settings
+premium:
+  # Auto-login premium players
+  auto-login: true
+  
+  # API timeout in milliseconds
+  api-timeout-ms: 5000
+  
+  # Treat API failures as cracked (true) or premium (false)
+  fail-safe-cracked: true
+
+# Restrictions (applied to non-logged-in players)
+restrictions:
+  # Block chat
+  block-chat: true
+  
+  # Block movement
+  block-movement: true
+  
+  # Block block placement
+  block-building: true
+  
+  # Block block breaking
+  block-mining: true
+  
+  # Block interactions (doors, chests, etc.)
+  block-interactions: true
+
+# Messages (customize player-facing messages)
+messages:
+  prefix: "&8[&6SecureAuth&8]&r "
+  
+  # Registration messages
+  register-success: "&aRegistered successfully! You're now logged in."
+  register-already-registered: "&cYou're already registered! Use /login instead."
+  register-password-mismatch: "&cPasswords don't match!"
+  register-password-too-short: "&cPassword must be at least {min} characters!"
+  register-password-weak: "&cPassword is too weak! Use uppercase, lowercase, numbers, and special characters."
+  
+  # Login messages
+  login-success: "&aLogin successful! Welcome back."
+  login-not-registered: "&cYou're not registered! Use /register first."
+  login-wrong-password: "&cWrong password! Attempts: {attempts}/{max}"
+  login-locked-out: "&cYou're locked out! Wait {minutes} more minutes."
+  login-ip-locked: "&cYour IP is locked out! Wait {minutes} more minutes."
+  
+  # Premium messages
+  premium-auto-login: "&aWelcome, premium player! Auto-logged in."
+  
+  # Session messages
+  session-timeout: "&cSession timed out due to inactivity! Please login again."
+  session-expired: "&cYour session has expired. Please login again."
+  
+  # Change password messages
+  changepass-success: "&aPassword changed successfully!"
+  changepass-not-logged-in: "&cYou must be logged in to change your password!"
+  changepass-wrong-old: "&cWrong old password!"
+  changepass-not-registered: "&cYou're not registered!"
+  
+  # Admin messages
+  setpass-success: "&aPassword set for {player} successfully!"
+  setpass-player-offline: "&cPlayer {player} is not online!"
+  setpass-no-permission: "&cYou don't have permission to use this command!"
+  
+  # Restriction messages
+  restriction-chat: "&cYou must login first! Use /login <password>"
+  restriction-movement: "&cYou're frozen until login! Use /login <password>"
+  restriction-building: "&cCan't build until login! Use /login <password>"
+  restriction-mining: "&cCan't mine until login! Use /login <password>"
+  restriction-interaction: "&cCan't interact until login! Use /login <password>"
+  
+  # General messages
+  welcome-cracked: "&eWelcome! Please register with /register <password> <repeat>"
+  welcome-registered: "&ePlease login with /login <password>"
+  no-permission: "&cYou don't have permission to use this command!"
+
+# Logging Settings
+logging:
+  # Log successful logins
+  log-logins: true
+  
+  # Log failed login attempts
+  log-failed-attempts: true
+  
+  # Log password changes
+  log-password-changes: true
+  
+  # Log admin actions
+  log-admin-actions: true
+

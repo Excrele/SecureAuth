@@ -25,6 +25,30 @@ commands:
     description: Admin only: Force-set a player's password (resets it securely).
     usage: /setpass <player-name> <new-password>
     permission: secureauth.setpass
+  auth:
+    description: Admin commands for managing SecureAuth.
+    usage: /auth <subcommand>
+    permission: secureauth.admin
+  authinfo:
+    description: View your account information.
+    usage: /authinfo
+    permission: secureauth.info
+  logout:
+    description: Logout from your current session.
+    usage: /logout
+    permission: secureauth.logout
+  logoutall:
+    description: Logout from all sessions.
+    usage: /logoutall
+    permission: secureauth.logout
+  2fa:
+    description: Manage your 2FA settings.
+    usage: /2fa <setup|disable|verify>
+    permission: secureauth.2fa
+  2faverify:
+    description: Verify your 2FA code after login.
+    usage: /2faverify <code>
+    permission: secureauth.2fa
 
 # Permissions: Like VIP passes. 'default: true' means everyone gets it unless an admin says no.
 permissions:
@@ -43,3 +67,15 @@ permissions:
   secureauth.bypass:
     description: Skips login checks for trusted staff (like ops/admins). Use wisely!
     default: op  # Only server operators get this by default.
+  secureauth.admin:
+    description: Access to admin commands for SecureAuth.
+    default: op
+  secureauth.info:
+    description: View your own account information.
+    default: true
+  secureauth.logout:
+    description: Logout from sessions.
+    default: true
+  secureauth.2fa:
+    description: Use 2FA commands.
+    default: true
